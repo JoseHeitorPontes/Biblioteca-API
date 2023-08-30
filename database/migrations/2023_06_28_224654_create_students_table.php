@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name', 100)->unique();
-            $table->string('licensePlate', 20)->unique();
             $table->string('phone', 20);
             $table->string('email', 100);
             $table->string('image', 100);

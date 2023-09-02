@@ -12,9 +12,9 @@ class Student extends Model
     protected $fillable = [
         'id',
         'name',
-        'licensePlate',
         'phone',
         'email',
+        'birthDate',
         'image',
     ];
 }

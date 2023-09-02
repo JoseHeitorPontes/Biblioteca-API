@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name', 100)->unique();
             $table->string('phone', 20);
             $table->string('email', 100);
+            $table->date('birthDate');
             $table->string('image', 100);
         });
     }

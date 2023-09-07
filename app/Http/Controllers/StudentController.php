@@ -4,15 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\StudentCollection;
 use App\Models\Student;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $students = Student::paginate(8);
+        $patientName = $request->patientName;
+
+        $students = Student::when($patientName, function (Builder $query) use ($patientName) {
+            $query->where('name', 'like', "%$patientName%");
+        })
+            ->paginate(8);
 
         return new StudentCollection($students);
     }

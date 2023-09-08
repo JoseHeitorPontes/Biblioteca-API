@@ -13,11 +13,12 @@ class StudentController extends Controller
 {
     public function index(Request $request)
     {
-        $patientName = $request->patientName;
+        $studentName = $request->studentName;
 
-        $students = Student::when($patientName, function (Builder $query) use ($patientName) {
-            $query->where('name', 'like', "%$patientName%");
+        $students = Student::when($studentName, function (Builder $query) use ($studentName) {
+            $query->where('name', 'like', "%$studentName%");
         })
+            ->orderBy('id', 'desc')
             ->paginate(8);
 
         return new StudentCollection($students);
@@ -35,5 +36,12 @@ class StudentController extends Controller
         $student = Student::create($data);
 
         return response()->json($student);
+    }
+
+    public function destroy($id): JsonResponse
+    {
+        Student::destroy($id);
+
+        return response()->json();
     }
 }

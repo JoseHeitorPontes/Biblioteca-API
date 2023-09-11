@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\StudentController;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -26,4 +27,8 @@ Route::prefix('students')->group(function () {
     Route::get('/', [StudentController::class, 'index']);
     Route::post('/', [StudentController::class, 'store']);
     Route::delete('/{id}', [StudentController::class, 'destroy']);
+});
+
+Route::prefix('categories')->group(function () {
+    Route::post('/', [CategoryController::class, 'store']);
 });

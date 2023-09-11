@@ -19,7 +19,7 @@ class StudentController extends Controller
             $query->where('name', 'like', "%$studentName%");
         })
             ->orderBy('id', 'desc')
-            ->paginate(6);
+            ->paginate(10);
 
         return new StudentCollection($students);
     }

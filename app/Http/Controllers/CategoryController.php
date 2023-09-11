@@ -9,6 +9,13 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    public function index(): JsonResponse
+    {
+        $categories = Category::all();
+
+        return response()->json($categories);
+    }
+
     public function store(Request $request): JsonResponse
     {
         $data = $request->all();

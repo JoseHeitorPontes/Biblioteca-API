@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\StudentController;
 use App\Models\Student;
@@ -32,4 +33,9 @@ Route::prefix('students')->group(function () {
 Route::prefix('categories')->group(function () {
     Route::get('/', [CategoryController::class, 'index']);
     Route::post('/', [CategoryController::class, 'store']);
+});
+
+Route::prefix('books')->group(function () {
+    Route::get('/', [BookController::class, 'index']);
+    Route::post('/', [BookController::class, 'store']);
 });

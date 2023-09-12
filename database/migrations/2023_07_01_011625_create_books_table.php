@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('releaseDate');
             $table->text('description');
             $table->foreignId('category_id')->constrained('categories');
-            $table->string('image', 100);
+            $table->string('image', 100)->nullable();
         });
     }
 

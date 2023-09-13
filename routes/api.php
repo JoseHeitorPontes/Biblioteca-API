@@ -33,7 +33,7 @@ Route::prefix('students')->group(function () {
 Route::prefix('categories')->group(function () {
     Route::get('/', [CategoryController::class, 'index']);
     Route::post('/', [CategoryController::class, 'store']);
-    Route::delete('/', [CategoryController::class, 'destroy']);
+    Route::delete('/{id}', [CategoryController::class, 'destroy']);
 });
 
 Route::prefix('books')->group(function () {

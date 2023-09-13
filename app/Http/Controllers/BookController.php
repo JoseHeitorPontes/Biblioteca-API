@@ -21,16 +21,16 @@ class BookController extends Controller
 
     public function index(Request $request)
     {
+        $bookName = $request->bookName;
         $categoryName = $request->categoryName;
-        $category = $request->category;
 
         $books = Book::with('category')
-            ->when($categoryName, function (Builder $query) use ($categoryName) {
-                $query->where('name', 'linke', "%$categoryName%");
+            ->when($bookName, function (Builder $query) use ($bookName) {
+                $query->where('name', 'linke', "%$bookName%");
             })
-            ->when($category, function (Builder $query) use ($category) {
-                $query->whereHas('category', function (Builder $query) use ($category) {
-                    $query->where('name', $category);
+            ->when($categoryName, function (Builder $query) use ($categoryName) {
+                $query->whereHas('category', function (Builder $query) use ($categoryName) {
+                    $query->where('name', $categoryName);
                 });
             })
             ->paginate(8);

@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AuthRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-    public function auth(Request $request)
+    public function auth(AuthRequest $request): JsonResponse
     {
         $user = User::where('email', $request->email)->first();
 
@@ -25,7 +26,25 @@ class AuthController extends Controller
         $token = $user->createToken($request->device_name)->plainTextToken;
 
         return response()->json([
-            'token' => $token,
+            'token' => $token
+        ]);
+    }
+
+    public function me()
+    {
+        $user = auth()->user();
+
+        return response()->json([
+            'user' => $user
+        ]);
+    }
+
+    public function logout()
+    {
+        auth()->user()->tokens()->delete();
+
+        return response()->json([
+            'status' => 200
         ]);
     }
 }

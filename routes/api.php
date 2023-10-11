@@ -21,25 +21,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/auth', [AuthController::class, 'auth']);
+Route::post('auth', [AuthController::class, 'auth']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('me', [AuthController::class, 'me']);
+    Route::post('logout', [AuthController::class, 'logout']);
 
-Route::prefix('students')->group(function () {
-    Route::get('/', [StudentController::class, 'index']);
-    Route::post('/', [StudentController::class, 'store']);
-    Route::delete('/{id}', [StudentController::class, 'destroy']);
-});
+    Route::prefix('students')->group(function () {
+        Route::get('/', [StudentController::class, 'index']);
+        Route::post('/', [StudentController::class, 'store']);
+        Route::delete('/{id}', [StudentController::class, 'destroy']);
+    });
 
-Route::prefix('categories')->group(function () {
-    Route::get('/', [CategoryController::class, 'index']);
-    Route::post('/', [CategoryController::class, 'store']);
-    Route::delete('/{id}', [CategoryController::class, 'destroy']);
-});
+    Route::prefix('categories')->group(function () {
+        Route::get('/', [CategoryController::class, 'index']);
+        Route::post('/', [CategoryController::class, 'store']);
+        Route::delete('/{id}', [CategoryController::class, 'destroy']);
+    });
 
-Route::prefix('books')->group(function () {
-    Route::get('/', [BookController::class, 'index']);
-    Route::post('/', [BookController::class, 'store']);
+    Route::prefix('books')->group(function () {
+        Route::get('/', [BookController::class, 'index']);
+        Route::post('/', [BookController::class, 'store']);
+    });
 });

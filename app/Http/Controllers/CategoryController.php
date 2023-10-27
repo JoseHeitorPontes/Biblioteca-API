@@ -31,4 +31,14 @@ class CategoryController extends Controller
 
         return response()->json([], 200);
     }
+
+    public function update(Request $request, $id)
+    {
+        $data = $request->all();
+
+        $category = Category::findOrFail($id);
+        $category->update($data);
+
+        return response()->json($category);
+    }
 }

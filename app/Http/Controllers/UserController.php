@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
@@ -17,6 +18,6 @@ class UserController extends Controller
 
         return response()->json([
             'message' => 'Usuário cadastrado com sucesso.',
-        ], 200);
+        ], Response::HTTP_OK);
     }
 }

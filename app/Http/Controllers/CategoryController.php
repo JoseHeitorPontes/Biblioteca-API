@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUpdateCategoryRequest;
 use App\Http\Resources\CategoriesCollection;
 use App\Models\Category;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
 
 class CategoryController extends Controller
 {
@@ -17,7 +18,7 @@ class CategoryController extends Controller
         return new CategoriesCollection($categories);
     }
 
-    public function store(Request $request)
+    public function store(StoreUpdateCategoryRequest $request)
     {
         $data = $request->all();
 
@@ -32,6 +33,22 @@ class CategoryController extends Controller
 
         return response()->json([
             'message' => 'Categoria excluida com sucesso!',
+        ], Response::HTTP_OK);
+    }
+
+    public function update(StoreUpdateCategoryRequest $request, int $id)
+    {
+        $category = Category::find($id);
+
+        if (!$category) {
+            throw ValidationException::withMessages(['category' => 'Categoria não existente!']);
+        }
+
+        $data = $request->validated();
+        $category->update($data);
+
+        return response([
+            $category,
         ], Response::HTTP_OK);
     }
 }

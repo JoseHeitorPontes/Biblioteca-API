@@ -25,4 +25,13 @@ class CategoryController extends Controller
 
         return response()->json($data, Response::HTTP_OK);
     }
+
+    public function destroy($id)
+    {
+        Category::destroy($id);
+
+        return response()->json([
+            'message' => 'Categoria excluida com sucesso!',
+        ], Response::HTTP_OK);
+    }
 }

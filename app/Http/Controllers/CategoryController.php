@@ -3,12 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CategoriesCollection;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class CategoryController extends Controller
 {
+    public function index(Category $category)
+    {
+        $categories = $category->paginate(10);
+
+        return new CategoriesCollection($categories);
+    }
+
     public function store(Request $request)
     {
         $data = $request->all();

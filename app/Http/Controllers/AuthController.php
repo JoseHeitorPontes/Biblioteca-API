@@ -7,6 +7,7 @@ use App\Http\Requests\AuthRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
@@ -38,5 +39,16 @@ class AuthController extends Controller
         $user = auth()->user();
 
         return response()->json($user);
+    }
+
+    public function logout()
+    {
+        $user = auth()->user();
+
+        $user->tokens()->delete();
+
+        return response()->json([
+            'message' => 'Usuário deslogado com sucesso.',
+        ], Response::HTTP_OK);
     }
 }

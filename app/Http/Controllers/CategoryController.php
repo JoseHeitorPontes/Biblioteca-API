@@ -20,11 +20,11 @@ class CategoryController extends Controller
 
     public function store(StoreUpdateCategoryRequest $request)
     {
-        $data = $request->all();
+        $data = $request->validated();
 
-        Category::create($data);
+        $category = Category::create($data);
 
-        return response()->json($data, Response::HTTP_OK);
+        return response()->json($category, Response::HTTP_OK);
     }
 
     public function destroy($id)

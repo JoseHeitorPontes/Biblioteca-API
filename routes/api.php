@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -26,6 +27,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/', [CategoryController::class, 'store']);
         Route::delete('/{id}', [CategoryController::class, 'destroy']);
         Route::put('/{id}', [CategoryController::class, 'update']);
+    });
+
+    Route::prefix('/books')->group(function () {
+        Route::get('/', [BookController::class, 'index']);
+        Route::post('/', [BookController::class, 'store']);
     });
 });
 

@@ -27,10 +27,10 @@ class AuthController extends Controller
 
         $user->tokens()->delete();
 
-        $token = $user->createToken($data['device_name'])->plainTextToken;
+        $access_token = $user->createToken($data['device_name'])->plainTextToken;
 
         return response()->json([
-            'token' => $token,
+            'access_token' => $access_token,
         ]);
     }
 

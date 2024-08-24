@@ -29,7 +29,15 @@ class CategoryController extends Controller
 
     public function destroy($id)
     {
-        Category::destroy($id);
+        $category = Category::find($id);
+
+        if (!$category) {
+            throw ValidationException::withMessages([
+                'category' => 'Categoria não existente!'
+            ]);
+        }
+
+        $category->destroy();
 
         return response()->json([
             'message' => 'Categoria excluida com sucesso!',

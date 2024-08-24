@@ -8,6 +8,7 @@ use App\Http\Resources\BooksCollection;
 use App\Models\Book;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
 
 class BookController extends Controller
 {
@@ -32,5 +33,31 @@ class BookController extends Controller
         $book = Book::create($data);
 
         return response()->json($book, Response::HTTP_OK);
+    }
+
+    public function show($id)
+    {
+        $book = Book::with('category')->find($id);
+
+        if (!$book) {
+            throw ValidationException::withMessages([ 'book' => 'Livro não existente!']);
+        }
+
+        return response()->json($book);
+    }
+
+    public function destroy($id)
+    {
+        $book = Book::find($id);
+
+        if (!$book) {
+            throw ValidationException::withMessages([ 'book' => 'Livro não existente!']);
+        }
+
+        $book->destroy();
+
+        return response()->json([
+            'message' => 'Livro excluido com sucesso!',
+        ], Response::HTTP_OK);
     }
 }

@@ -13,6 +13,7 @@ class Student extends Model
         'id',
         'name',
         'gender',
+        'birthdate',
         'city',
         'neighborhood',
         'street',
@@ -20,5 +21,9 @@ class Student extends Model
         'email',
         'phone',
         'classroom',
+    ];
+
+    protected $casts = [
+        'birthdate' => 'date'
     ];
 }

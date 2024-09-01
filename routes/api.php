@@ -3,8 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +33,12 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/', [BookController::class, 'index']);
         Route::post('/', [BookController::class, 'store']);
         Route::get('/{id}', [BookController::class, 'show']);
+    });
+
+    Route::prefix('/students')->group(function () {
+        Route::get('/', [StudentController::class, 'index']);
+        Route::post('/', [StudentController::class, 'store']);
+        Route::delete('/', [StudentController::class, 'destroy']);
     });
 });
 

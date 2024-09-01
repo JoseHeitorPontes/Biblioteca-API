@@ -16,7 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->string('name')->unique();
             $table->date('birthdate');
-            $table->enum('gender', [0, 1, 2]);
+            $table->enum('gender', [1, 2]);
             $table->string('city');
             $table->string('neighborhood');
             $table->string('street');
